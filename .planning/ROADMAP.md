@@ -21,7 +21,7 @@
 - Monorepo scaffolded: `agent/` (Node.js) · `frontend/` (Vite React)
 - `.env` template created; `.env` and `serviceAccountKey.json` in `.gitignore`
 
-**Status:** `pending`
+**Status:** `complete`
 
 ---
 
@@ -30,6 +30,11 @@
 **Goal:** Build the three-layer autonomous agent: Poller → Event Detector → Relevance Filter → Gemini integration.
 
 **Requirements covered:** AGENT-01, AGENT-02, AGENT-03, AGENT-04, AGENT-05, AGENT-06, AGENT-07
+
+**Plans:** 3 plans
+- [x] 02-01-PLAN.md — Refine Data Ingestion, State, and RTDB streaming
+- [x] 02-02-PLAN.md — Refine Agentic Reasoning (Event Detection & Filtering)
+- [x] 02-03-PLAN.md — Finalize Gemini Integration and Execution Loop
 
 **Deliverables:**
 - `agent/index.js` — main entry with infinite poll loop (3-second interval)
@@ -40,7 +45,7 @@
 - `agent/Dockerfile` — containerises the service
 - `agent/.env.example` — documents all required env vars
 
-**Status:** `pending`
+**Status:** `complete`
 
 ---
 
@@ -49,6 +54,10 @@
 **Goal:** Store insight cards durably, push them to fans instantly, and stream live score to the frontend header.
 
 **Requirements covered:** FIRE-01, FIRE-02, FIRE-03, FIRE-04
+
+**Plans:** 2 plans
+- [x] 03-01-PLAN.md — Firebase Admin Setup and Writer Module
+- [ ] 03-02-PLAN.md — Integration and Verification
 
 **Deliverables:**
 - `agent/firebase.js` — initialises Firebase Admin SDK with service account; exports `db` (Firestore) and `rtdb` (Realtime Database) and `messaging` (FCM)
@@ -95,10 +104,10 @@
 
 | Phase | Name | Key Output | Status |
 |-------|------|------------|--------|
-| 1 | Infrastructure Setup | GCP + Firebase provisioned, monorepo scaffolded | pending |
-| 2 | Agentic Backend | Poller + Event Detector + Gemini integration | pending |
-| 3 | Firebase Data Layer | Firestore writes + FCM push + RTDB streaming | pending |
+| 1 | Infrastructure Setup | GCP + Firebase provisioned, monorepo scaffolded | complete |
+| 2 | Agentic Backend | Poller + Event Detector + Gemini integration | complete |
+| 3 | Firebase Data Layer | Firestore writes + FCM push + RTDB streaming | in-progress |
 | 4 | React PWA + Deployment | Fan-facing app live on Cloud Run | pending |
 
 ---
-*Roadmap created: 2026-05-17*
+*Roadmap updated: 2026-05-18*
