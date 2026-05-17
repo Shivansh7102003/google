@@ -57,7 +57,7 @@
 
 **Plans:** 2 plans
 - [x] 03-01-PLAN.md — Firebase Admin Setup and Writer Module
-- [ ] 03-02-PLAN.md — Integration and Verification
+- [x] 03-02-PLAN.md — Integration and Verification
 
 **Deliverables:**
 - `agent/firebase.js` — initialises Firebase Admin SDK with service account; exports `db` (Firestore) and `rtdb` (Realtime Database) and `messaging` (FCM)
@@ -66,7 +66,7 @@
 - RTDB schema: `liveMatch/{matchId}` with fields `score`, `wickets`, `overs`, `striker`, `strikerRuns`, `bowler`, `lastUpdated`
 - Tested: card written to Firestore, FCM message received on test device, RTDB live score visible in console
 
-**Status:** `pending`
+**Status:** `complete`
 
 ---
 
@@ -75,6 +75,13 @@
 **Goal:** Build the fan-facing second screen and deploy agent + frontend to Cloud Run.
 
 **Requirements covered:** FE-01 through FE-10
+
+**Plans:** 3/5 plans executed
+- [x] 04-A-PLAN.md — React Scaffolding & UI Components
+- [x] 04-B-PLAN.md — Firebase Core & RTDB
+- [x] 04-C-PLAN.md — Firestore Insight Feed
+- [ ] 04-D-PLAN.md — PWA & Notifications
+- [ ] 04-E-PLAN.md — Cloud Run Deployment
 
 **Deliverables:**
 
@@ -96,7 +103,7 @@
 - `frontend/` deployed to Cloud Run `asia-south1`, `--allow-unauthenticated`
 - End-to-end smoke test: poller fires → event detected → Gemini card generated → Firestore written → card appears in live PWA
 
-**Status:** `pending`
+**Status:** `in-progress`
 
 ---
 
@@ -106,8 +113,8 @@
 |-------|------|------------|--------|
 | 1 | Infrastructure Setup | GCP + Firebase provisioned, monorepo scaffolded | complete |
 | 2 | Agentic Backend | Poller + Event Detector + Gemini integration | complete |
-| 3 | Firebase Data Layer | Firestore writes + FCM push + RTDB streaming | in-progress |
-| 4 | React PWA + Deployment | Fan-facing app live on Cloud Run | pending |
+| 3 | Firebase Data Layer | Firestore writes + FCM push + RTDB streaming | complete |
+| 4 | 3/5 | In Progress|  |
 
 ---
 *Roadmap updated: 2026-05-18*
