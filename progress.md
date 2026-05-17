@@ -1,9 +1,9 @@
 # Analyst's Dugout — Progress
 
-## Project Status: 🚀 Initialized
+## Project Status: ✅ Phase 1 Complete (Manual GCP/Firebase steps pending)
 
 **Last updated:** 2026-05-17
-**Current phase:** Phase 1 (not started — ready to plan)
+**Current phase:** Phase 2 — Agentic Backend
 
 ---
 
@@ -13,27 +13,38 @@
 - [x] Read and analysed `implementation.md` (full system architecture, 4-phase plan)
 - [x] Initialized git repository
 - [x] Created `.planning/` directory structure
-- [x] Created `.planning/PROJECT.md` — project context, requirements, constraints, key decisions
-- [x] Created `.planning/REQUIREMENTS.md` — 26 v1 requirements across 4 phases with IDs (INFRA, AGENT, FIRE, FE)
-- [x] Created `.planning/ROADMAP.md` — 4-phase hackathon roadmap with deliverables per phase
-- [x] Created `.planning/STATE.md` — project state tracker, points to Phase 1
-- [x] Created `.planning/config.json` — GSD config (YOLO, coarse, parallel, balanced)
-- [x] Created `context.md` — master project context for ongoing agent awareness
-- [x] Created `progress.md` — this file
+- [x] Created `.planning/PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md`, `config.json`
+- [x] Created `context.md` and `progress.md`
+
+### 2026-05-17 — Phase 1 Execution
+- [x] **Plan 01-A (GCP/Firebase)** — requires manual browser steps (see Phase 1 checklist below)
+- [x] **Plan 01-B — Agent scaffold**: `agent/` with Node.js + all deps (`@google/generative-ai`, `firebase-admin`, `axios`, `dotenv`, `nodemon`)
+- [x] **Plan 01-B — Frontend**: Switched from React/Vite → **pure HTML/CSS/JS** (no build step, Firebase CDN)
+  - `frontend/index.html` — full PWA shell
+  - `frontend/css/style.css` — dark glassmorphism design system
+  - `frontend/js/firebase-config.js` — Firebase init
+  - `frontend/js/app.js` — RTDB + Firestore listeners, card feed, toggle
+  - `frontend/js/fcm.js` — push notification setup
+  - `frontend/firebase-messaging-sw.js` — FCM service worker + app shell cache
+  - `frontend/manifest.json` — PWA installable manifest
+  - `frontend/nginx.conf` + `frontend/Dockerfile` — Cloud Run deployment
+- [x] Root `.env.example` documents all 14 environment variable keys
+- [x] All code committed: `feat(phase-1): scaffold monorepo`
 
 ---
 
 ## 🔲 Pending
 
-### Phase 1 — Infrastructure Setup
-- [ ] GCP project `analysts-dugout` created
-- [ ] All required GCP APIs enabled
-- [ ] Firebase linked; Firestore + RTDB + FCM configured
-- [ ] Firebase Admin SDK service account key generated (not committed)
-- [ ] CricketData.org API key tested; live `matchId` obtained
-- [ ] Gemini API key from AI Studio
-- [ ] Monorepo scaffold: `agent/` and `frontend/` directories created
-- [ ] `.env.example` + `.gitignore` set up
+### Phase 1 — Infrastructure Setup ⚠ Manual steps remaining
+- [ ] GCP project `analysts-dugout` created (manual — console.cloud.google.com)
+- [ ] Cloud Run, Firestore, Firebase, Artifact Registry, Cloud Build APIs enabled
+- [ ] Firebase linked; Firestore (Native, asia-south1) + RTDB (asia-southeast1) + FCM configured
+- [ ] Firebase Admin SDK `serviceAccountKey.json` generated and placed in project root
+- [ ] CricketData.org API key obtained + `matchId` from `/currentMatches`
+- [ ] Gemini API key from aistudio.google.com
+- [ ] Fill `frontend/js/firebase-config.js` with real Firebase keys
+- [x] Monorepo scaffold complete — `agent/` and `frontend/` done
+- [x] `.env.example` + `.gitignore` set up
 
 ### Phase 2 — Agentic Backend
 - [ ] `agent/poller.js` — fetch, normalise, RTDB write
