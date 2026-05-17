@@ -1,0 +1,17 @@
+# Secrets — never commit
+.env
+serviceAccountKey.json
+*.key.json
+
+# Node
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
