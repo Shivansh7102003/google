@@ -2,18 +2,8 @@ import React, { useState } from 'react';
 import MatchHeader from './components/MatchHeader';
 import KnowledgeToggle from './components/KnowledgeToggle';
 import InsightFeed from './components/InsightFeed';
+import { useMatchData } from './hooks/useMatchData';
 import './App.css'; // Or index.css
-
-const MOCK_MATCH = {
-  battingTeam: 'India',
-  bowlingTeam: 'Australia',
-  runs: 145,
-  wickets: 3,
-  overs: '18.2',
-  striker: { name: 'V. Kohli', runs: 52, balls: 38 },
-  bowler: { name: 'P. Cummins', econ: '6.40' },
-  lastUpdated: 'Live from Mumbai'
-};
 
 const MOCK_INSIGHTS = [
   {
@@ -42,7 +32,7 @@ const MOCK_INSIGHTS = [
 
 function App() {
   const [knowledgeMode, setKnowledgeMode] = useState('beginner');
-  const [matchData, setMatchData] = useState(MOCK_MATCH);
+  const { matchData, loading, error } = useMatchData();
   const [insights, setInsights] = useState(MOCK_INSIGHTS);
 
   return (
