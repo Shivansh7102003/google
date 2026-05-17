@@ -1,7 +1,7 @@
 import React from 'react';
 import InsightCard from './InsightCard';
 
-const InsightFeed = ({ insights }) => {
+const InsightFeed = ({ insights, mode }) => {
   return (
     <main className="feed-container">
       <div className="feed-header">
@@ -18,7 +18,7 @@ const InsightFeed = ({ insights }) => {
       ) : (
         <div className="feed" id="card-feed" role="feed" aria-label="Live cricket insights">
           {insights.map((insight, index) => (
-            <InsightCard key={insight.id || index} insight={insight} />
+            <InsightCard key={insight.id || index} insight={insight} mode={mode} />
           ))}
         </div>
       )}

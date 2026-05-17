@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const InsightCard = ({ insight }) => {
+const InsightCard = ({ insight, mode }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const {
     trigger_type = 'NEW_OVER',
@@ -13,6 +13,7 @@ const InsightCard = ({ insight }) => {
     expert_insight = ''
   } = insight;
 
+  const displayInsight = mode === 'expert' ? expert_insight : beginner_insight;
   const badgeClass = `card-trigger-badge badge--${trigger_type}`;
 
   return (
@@ -29,14 +30,14 @@ const InsightCard = ({ insight }) => {
           <span className="card-key-player__name">{key_player}</span>
         </div>
       )}
-      <p className="card-body">{body}</p>
+      <p className="card-body">{displayInsight || body}</p>
       
       <button 
         className="card-expand-btn" 
         aria-expanded={isExpanded}
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <span className="expand-label">Tell me more</span>
+        <span className="expand-label">{isExpanded ? 'Show less' : 'Tell me more'}</span>
         <span className="expand-icon">{isExpanded ? '▴' : '▾'}</span>
       </button>
 
