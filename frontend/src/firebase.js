@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const rtdb = getDatabase(app);
 
-export { db, rtdb };
+export { app, db, rtdb };
 
 export const getFCMToken = async () => {
   if (await isSupported()) {
