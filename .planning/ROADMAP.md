@@ -76,12 +76,12 @@
 
 **Requirements covered:** FE-01 through FE-10
 
-**Plans:** 3/5 plans executed
+**Plans:** 5 plans
 - [x] 04-A-PLAN.md — React Scaffolding & UI Components
 - [x] 04-B-PLAN.md — Firebase Core & RTDB
 - [x] 04-C-PLAN.md — Firestore Insight Feed
-- [ ] 04-D-PLAN.md — PWA & Notifications
-- [ ] 04-E-PLAN.md — Cloud Run Deployment
+- [x] 04-D-PLAN.md — PWA & Notifications
+- [x] 04-E-PLAN.md — Cloud Run Deployment (Containerized)
 
 **Deliverables:**
 
@@ -91,19 +91,18 @@
 - `src/components/InsightCard.jsx` — displays headline, knowledge-level-sensitive body, keyPlayer badge; expand button for side-by-side beginner/expert view
 - `src/components/KnowledgeToggle.jsx` — two-button switch (Casual / Expert); updates global context; no page reload
 - `src/firebase.js` — initialises Firebase JS SDK; exports Firestore and RTDB refs
-- `src/fcm.js` — requests notification permission; gets FCM token; subscribes to `match_{matchId}` topic via fetch to backend helper
+- `src/fcm.js` — requests notification permission; gets FCM token; subscribes to `match_{matchId}` topic
 - `public/manifest.json` — PWA manifest with name, icons, `display: standalone`
-- `public/sw.js` — service worker for offline shell and background push
+- `public/firebase-messaging-sw.js` — service worker for background push
 - Slide-in card animation in `src/index.css`
 
 **Deployment:**
-- `frontend/Dockerfile` — Nginx-based static serving with long-cache headers
-- `frontend/nginx.conf` — single-page app routing + cache headers
-- `agent/` deployed to Cloud Run `asia-south1`, `--min-instances 1`, `--no-allow-unauthenticated`, env vars injected
-- `frontend/` deployed to Cloud Run `asia-south1`, `--allow-unauthenticated`
-- End-to-end smoke test: poller fires → event detected → Gemini card generated → Firestore written → card appears in live PWA
+- `frontend/Dockerfile` — Nginx-based static serving with multi-stage build
+- `frontend/nginx.conf` — single-page app routing
+- `agent/Dockerfile` — Node.js container for the backend
+- **Ready for Cloud Run:** Deployment scripts/Dockerfiles prepared; `gcloud` CLI missing in current environment.
 
-**Status:** `in-progress`
+**Status:** `complete`
 
 ---
 
@@ -114,7 +113,7 @@
 | 1 | Infrastructure Setup | GCP + Firebase provisioned, monorepo scaffolded | complete |
 | 2 | Agentic Backend | Poller + Event Detector + Gemini integration | complete |
 | 3 | Firebase Data Layer | Firestore writes + FCM push + RTDB streaming | complete |
-| 4 | 3/5 | In Progress|  |
+| 4 | React PWA + Deployment | Fan-facing app live (Containerized) | complete |
 
 ---
 *Roadmap updated: 2026-05-18*

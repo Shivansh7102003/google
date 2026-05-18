@@ -1,26 +1,47 @@
 import { useState, useEffect } from "react";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, off } from "firebase/database";
 import { rtdb } from "../firebase";
 
-const MATCH_ID = import.meta.env.VITE_MATCH_ID;
+const ENV_MATCH_ID = import.meta.env.VITE_MATCH_ID;
 
 export const useMatchData = () => {
   const [matchData, setMatchData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeId, setActiveId] = useState(ENV_MATCH_ID);
 
   useEffect(() => {
-    if (!MATCH_ID) {
-      setError("No Match ID provided");
-      setLoading(false);
-      return;
-    }
+    // If no ID in env, listen for the dynamically selected ID from the backend
+    if (!ENV_MATCH_ID) {
+      const activeMatchIdRef = ref(rtdb, 'activeMatchId');
+      const unsubscribeActiveId = onValue(activeMatchIdRef, (snapshot) => {
+        const id = snapshot.val();
+        if (id) {
+          setActiveId(id);
+        } else {
+          setError("Waiting for a live match to start...");
+          setLoading(false);
+        }
+      });
 
-    const matchRef = ref(rtdb, `liveMatch/${MATCH_ID}`);
+      return () => unsubscribeActiveId();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!activeId) return;
+
+    setLoading(true);
+    const matchRef = ref(rtdb, `liveMatch/${activeId}`);
     
     const unsubscribe = onValue(matchRef, (snapshot) => {
       const data = snapshot.val();
-      setMatchData(data);
+      if (data) {
+        setMatchData(data);
+        setError(null);
+      } else {
+        setError(`No data found for match ${activeId}`);
+      }
       setLoading(false);
     }, (err) => {
       console.error("RTDB Error:", err);
@@ -29,7 +50,7 @@ export const useMatchData = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [activeId]);
 
-  return { matchData, loading, error };
+  return { matchData, loading, error, matchId: activeId };
 };

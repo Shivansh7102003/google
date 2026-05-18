@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "default": "analysts-dugout"
+  },
+  "targets": {
+    "apl-bot-496618": {
+      "hosting": {
+        "app": [
+          "apl-bot-496618"
+        ]
+      }
+    },
+    "analysts-dugout": {
+      "hosting": {
+        "app": [
+          "analysts-dugout"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

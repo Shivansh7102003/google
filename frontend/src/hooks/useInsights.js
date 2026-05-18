@@ -2,21 +2,22 @@ import { useState, useEffect } from "react";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 
-const MATCH_ID = import.meta.env.VITE_MATCH_ID;
+const ENV_MATCH_ID = import.meta.env.VITE_MATCH_ID;
 
-export const useInsights = () => {
+export const useInsights = (activeMatchId) => {
   const [insights, setInsights] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const targetId = activeMatchId || ENV_MATCH_ID;
+
   useEffect(() => {
-    if (!MATCH_ID) {
-      setError("No Match ID provided");
+    if (!targetId) {
       setLoading(false);
       return;
     }
 
-    const insightsRef = collection(db, "insights", MATCH_ID, "cards");
+    const insightsRef = collection(db, "insights", targetId, "cards");
     const q = query(insightsRef, orderBy("timestamp", "desc"));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -33,7 +34,7 @@ export const useInsights = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [targetId]);
 
   return { insights, loading, error };
 };

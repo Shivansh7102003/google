@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A0E1A" />
+  <meta name="description" content="AI-powered cricket second-screen — live tactical insights as they happen." />
+  <title>Analyst's Dugout</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Firebase Compat SDK (CDN — no build step needed) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+</head>
+<body>
+
+  <!-- ── Top Bar ──────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__logo">🏏</span>
+      <span class="topbar__name">Analyst's Dugout</span>
+    </div>
+    <div class="live-pill" id="live-pill">
+      <span class="live-dot"></span> LIVE
+    </div>
+  </header>
+
+  <!-- ── Match Header ─────────────────────────────────────── -->
+  <section class="match-header" id="match-header">
+    <div class="match-header__teams">
+      <span class="match-header__team" id="batting-team">Loading…</span>
+      <span class="match-header__vs">vs</span>
+      <span class="match-header__team match-header__team--bowling" id="bowling-team">—</span>
+    </div>
+
+    <div class="score-block">
+      <div class="score-block__runs" id="score-display">—/—</div>
+      <div class="score-block__overs" id="overs-display">0.0 ov</div>
+    </div>
+
+    <div class="player-row">
+      <div class="player-chip player-chip--bat">
+        <span class="player-chip__icon">🏏</span>
+        <div>
+          <div class="player-chip__label">Striker</div>
+          <div class="player-chip__name" id="striker-name">—</div>
+          <div class="player-chip__stat" id="striker-runs">0 (0)</div>
+        </div>
+      </div>
+      <div class="player-chip player-chip--bowl">
+        <span class="player-chip__icon">⚡</span>
+        <div>
+          <div class="player-chip__label">Bowler</div>
+          <div class="player-chip__name" id="bowler-name">—</div>
+          <div class="player-chip__stat" id="bowler-econ">0.00 econ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="last-updated" id="last-updated">Waiting for live data…</div>
+  </section>
+
+  <!-- ── Knowledge Toggle ─────────────────────────────────── -->
+  <div class="toggle-wrap">
+    <div class="toggle-group" id="knowledge-toggle">
+      <button class="toggle-btn toggle-btn--active" data-mode="beginner" id="btn-beginner">
+        🙌 Casual Fan
+      </button>
+      <button class="toggle-btn" data-mode="expert" id="btn-expert">
+        📊 Cricket Expert
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Insight Feed ──────────────────────────────────────── -->
+  <main class="feed-container">
+    <div class="feed-header">
+      <h1 class="feed-title">Live Insights</h1>
+      <span class="feed-count" id="card-count">0 cards</span>
+    </div>
+
+    <div class="empty-state" id="empty-state">
+      <div class="empty-state__icon">📡</div>
+      <p class="empty-state__title">Watching the match…</p>
+      <p class="empty-state__sub">Insights appear the moment something tactically significant happens.</p>
+    </div>
+
+    <div class="feed" id="card-feed" role="feed" aria-label="Live cricket insights"></div>
+  </main>
+
+  <!-- ── Card Template (cloned by JS) ────────────────────── -->
+  <template id="card-template">
+    <article class="insight-card" role="article">
+      <div class="card-header">
+        <span class="card-trigger-badge"></span>
+        <span class="card-score"></span>
+        <span class="card-time"></span>
+      </div>
+      <h2 class="card-headline"></h2>
+      <div class="card-key-player">
+        <span class="card-key-player__icon">⭐</span>
+        <span class="card-key-player__name"></span>
+      </div>
+      <p class="card-body"></p>
+      <button class="card-expand-btn" aria-expanded="false">
+        <span class="expand-label">Tell me more</span>
+        <span class="expand-icon">▾</span>
+      </button>
+      <div class="card-expanded" hidden>
+        <div class="expand-col">
+          <div class="expand-col__label">🙌 Casual Fan</div>
+          <p class="expand-beginner"></p>
+        </div>
+        <div class="expand-col">
+          <div class="expand-col__label">📊 Expert</div>
+          <p class="expand-expert"></p>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <!-- ── Toast notifications ─────────────────────────────── -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- ── Scripts ──────────────────────────────────────────── -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/fcm.js"></script>
+</body>
+</html>

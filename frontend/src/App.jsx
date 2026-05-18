@@ -8,8 +8,8 @@ import './App.css'; // Or index.css
 
 function App() {
   const [knowledgeMode, setKnowledgeMode] = useState('beginner');
-  const { matchData } = useMatchData();
-  const { insights } = useInsights();
+  const { matchData, matchId } = useMatchData();
+  const { insights } = useInsights(matchId);
 
   return (
     <div className="app-container">

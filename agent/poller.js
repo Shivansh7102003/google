@@ -4,7 +4,7 @@ import { updateState } from './state.js';
 import { rtdb } from './firebase.js';
 
 const CRICKET_API_KEY = process.env.CRICKET_API_KEY;
-const MATCH_ID = process.env.MATCH_ID;
+let activeMatchId = process.env.MATCH_ID;
 const BASE_URL = 'https://api.cricapi.com/v1';
 
 async function fetchMatchData() {
@@ -18,11 +18,34 @@ async function fetchMatchData() {
 }
 
 function normalizeMatchData(data) {
-  const match = data.data.find(m => m.id === MATCH_ID);
+  let match;
+  
+  if (activeMatchId) {
+    match = data.data.find(m => m.id === activeMatchId);
+  } else {
+    // DYNAMIC MATCH ID: Pick the first available live match
+    match = data.data.find(m => m.matchStarted && !m.matchEnded);
+    if (match) {
+      activeMatchId = match.id;
+      console.log(`\n[Dynamic Match Selection]`);
+      console.log(`Found live match: ${match.name}`);
+      console.log(`ID: ${activeMatchId}\n`);
+      
+      // Notify RTDB about the active match ID so frontend can find it
+      rtdb.ref('activeMatchId').set(activeMatchId);
+    }
+  }
+
   if (!match) return null;
 
   const isLive = match.matchStarted && !match.matchEnded;
-  if (!isLive) return null;
+  if (!isLive) {
+    if (activeMatchId) {
+       console.log(`Match ${activeMatchId} is no longer live. Status: ${match.status}`);
+       activeMatchId = null; // Reset to allow finding another match
+    }
+    return null;
+  }
 
   const battingTeam = match.teamInfo?.[0]?.name || '';
   const bowlingTeam = match.teamInfo?.[1]?.name || '';

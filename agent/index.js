@@ -3,18 +3,22 @@ dotenv.config({ path: './.env' });
 
 import http from 'http';
 
+// Cloud Run requires the container to listen on the PORT environment variable
+const PORT = process.env.PORT || 8080;
+
 const healthServer = http.createServer((req, res) => {
-  if (req.url === '/health') {
+  // Cloud Run and many load balancers check / or /health
+  if (req.url === '/health' || req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', timestamp: new Date().toISOString() }));
+    res.end(JSON.stringify({ status: 'ok', timestamp: new Date().toISOString(), service: 'cricket-agent' }));
   } else {
     res.writeHead(404);
     res.end();
   }
 });
 
-healthServer.listen(8080, () => {
-  console.log('Health check server running on port 8080');
+healthServer.listen(PORT, '0.0.0.0', () => {
+  console.log(`Health check server running on port ${PORT}`);
 });
 
 import { poll } from './poller.js';

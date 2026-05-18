@@ -4,20 +4,20 @@
 // ─────────────────────────────────────────────────────────────
 
 const FIREBASE_CONFIG = {
-  apiKey:            "VITE_FIREBASE_API_KEY",
-  authDomain:        "VITE_FIREBASE_AUTH_DOMAIN",
-  projectId:         "VITE_FIREBASE_PROJECT_ID",
-  storageBucket:     "VITE_FIREBASE_STORAGE_BUCKET",
-  messagingSenderId: "VITE_FIREBASE_MESSAGING_SENDER_ID",
-  appId:             "VITE_FIREBASE_APP_ID",
-  databaseURL:       "VITE_FIREBASE_DATABASE_URL",
+  apiKey:            "API_KEY_FROM_FIREBASE_CONSOLE",
+  authDomain:        "analysts-dugout.firebaseapp.com",
+  projectId:         "analysts-dugout",
+  storageBucket:     "analysts-dugout.appspot.com",
+  messagingSenderId: "SENDER_ID_FROM_FIREBASE_CONSOLE",
+  appId:             "APP_ID_FROM_FIREBASE_CONSOLE",
+  databaseURL:       "https://analysts-dugout-default-rtdb.asia-southeast1.firebasedatabase.app",
 };
 
 // VAPID key for FCM Web Push (Firebase Console → Cloud Messaging → Web push certificates)
 const VAPID_KEY = "VITE_FIREBASE_VAPID_KEY";
 
 // Match ID to listen on (set from your CricketData.org /currentMatches response)
-const MATCH_ID = "YOUR_MATCH_ID";
+const MATCH_ID = "d0401bb9-aa19-478c-8579-e275afd174cc";
 
 // Initialise Firebase (compat SDK loaded via CDN in index.html)
 firebase.initializeApp(FIREBASE_CONFIG);

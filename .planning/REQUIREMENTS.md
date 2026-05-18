@@ -32,7 +32,7 @@
 
 ### Frontend PWA
 
-- [ ] **FE-01**: Match header reads from RTDB via `onValue` listener and displays score, wickets, overs, striker, bowler — updates every 3 seconds
+- [x] **FE-01**: Match header reads from RTDB via `onValue` listener and displays score, wickets, overs, striker, bowler — updates every 3 seconds
 - [ ] **FE-02**: Insight card feed reads from Firestore via `onSnapshot`, ordered by timestamp descending, capped at 10 cards
 - [ ] **FE-03**: New cards appear at the top with slide-in animation
 - [ ] **FE-04**: Knowledge-level toggle switches all cards between `beginner` and `expert` without page reload
@@ -82,7 +82,7 @@
 | FIRE-02 | Phase 3 | Pending |
 | FIRE-03 | Phase 3 | Pending |
 | FIRE-04 | Phase 3 | Pending |
-| FE-01 | Phase 4 | Pending |
+| FE-01 | Phase 4 | Complete |
 | FE-02 | Phase 4 | Pending |
 | FE-03 | Phase 4 | Pending |
 | FE-04 | Phase 4 | Pending |
