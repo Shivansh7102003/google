@@ -15,5 +15,5 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
-.planning/
+.planning/*
 .venv/
